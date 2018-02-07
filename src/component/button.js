@@ -3,25 +3,21 @@ import React from 'react'
 
 export default class Button extends React.Component {
 	constructor(props) {
-		super(props);
+		super();
 		this.article = props;
 		this.state  ={
-			isOpen:false
+			isOpen:true
 		} ;
 		this.buttonClick = this.buttonClick.bind(this);
-	}
-	
-	
+	}	
 	
 	buttonClick() {
-		console.log(this.state);
 			this.setState({
 			isOpen:!this.state.isOpen
 		}) ;
 	}
 	render() {
 		const body = this.state.isOpen && <div>{this.article.text.text}</div>
-		console.log('w');
 		return (
 			<div>
 			<h1>{this.article.text.title}
