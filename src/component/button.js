@@ -1,27 +1,49 @@
 import React from 'react'
 
 
-export default class Button extends React.Component {
+export default class Button extends React.PureComponent {
 	constructor(props) {
-		super();
-		this.article = props;
+		super(props);
+		
 		this.state  ={
-			isOpen:true
+            count:0
 		} ;
-		this.buttonClick = this.buttonClick.bind(this);
+        this.countClick = this.countClick.bind(this);
 	}	
 	
-	buttonClick() {
-			this.setState({
-			isOpen:!this.state.isOpen
-		}) ;
-	}
+//    componentWillReceiveProps(nextProps) {
+//        if(nextProps.isOpen !== this.props.isOpen) {
+//            this.setState({
+//                isOpen: nextProps.isOpen
+//            })
+//            
+//        }
+//    }
+  
+    componentWillMount() {
+        console.log('mount');
+    }
+    componentWillUpdate() {
+         console.log('Update');
+    }
+    
+
+    
+    countClick() {
+        this.setState({
+        count: this.state.count+1    
+        });
+    }
+    
 	render() {
-		const body = this.state.isOpen && <div>{this.article.text.text}</div>
+          this.article = this.props;
+        const isOpen = this.props.isOpen
+		const body =isOpen && <div>{this.article.text.text}</div>
+      
 		return (
 			<div>
-			<h1>{this.article.text.title}
-			<button onClick={this.buttonClick}>{this.state.isOpen ? 'close' : 'open'}</button>
+			<h1 onClick={this.countClick}>{this.state.count}{this.article.text.title}
+			<button onClick={this.article.onButton}>{isOpen ? 'close' : 'open'}</button>
 			</h1>
 			{body}
 			</div>

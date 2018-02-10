@@ -4,31 +4,47 @@ import './index.css'
 
 
 export default class ArticleList extends React.Component{
-	constructor(props) {
-		super();
-		this.article = props.text;
-		this.arr = [];
-		this.toArticle(this.arr,this.article)
-	}
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+         openArticleId:null   
+        }
+       
+        
+    }
+    
+    
 
-	toArticle(arr,article) {
-		this.arr = article.map((articles)=>
-							   <div className="article">
-			<Button key ={articles.id}text={articles}/>
-							   </div>
-		);
+    toArticle() {
+       return this.props.text.map((articles,index)=>
+                               <div key={articles.id} className="article"   >
+                               <Button 
+                                    text={articles} 
+                                    isOpen={this.state.openArticleId === articles.id} 
+                                   onButton={this.handClick.bind(this,articles.id)}
+                                  />
+                                   
+                               </div>
+                              );
 
 
-	}
+    }
 
-	render() {
-
-		return(
-			<div>
-			{this.arr};
-			</div>
-		)
-	}
+    handClick(id) {
+        this.setState({
+            openArticleId : id
+        });
+    }
+    
+    render() {
+        const arr = this.toArticle();
+        return(
+            <div>
+            {arr}
+            </div>
+        )
+    }
 
 
 
